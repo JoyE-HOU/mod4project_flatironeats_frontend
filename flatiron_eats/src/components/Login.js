@@ -11,7 +11,7 @@ function Login({validateLogin}) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
+    // console.log('hello')
     validateLogin(name, email)
   }
 
