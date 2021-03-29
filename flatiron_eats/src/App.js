@@ -10,6 +10,7 @@ import Register from './components/Register'
 
 // styling
 import './App.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 // endpoints
 const URL = 'http://localhost:3000/users'
