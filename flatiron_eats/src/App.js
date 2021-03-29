@@ -17,7 +17,7 @@ const URL = 'http://localhost:3000/users'
 function App() {
 
   const [users, setUsers] = useState([])
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState(null)
 
   useEffect(async() => {
     const fetchUsers = await fetch(URL)
@@ -27,7 +27,7 @@ function App() {
 
   const login = async (user) => {
     const newUser = await setUser(user)
-    debugger
+    // debugger
     return <Redirect to={'/user_page'} />
   }
 
@@ -56,14 +56,21 @@ function App() {
     const userRes = await postUser.json()
 
     setUsers([...users, userRes])
+    setUser(userRes)
     login(user)
   }
 
   return (
     <Router>
       <div>
-        <Route exact path ='/' render={_ => <Login validateLogin={validateLogin} />} />
-        <Route path ='/register' render={_ => <Register registerUser={registerUser} />} />
+        <Route exact path ='/' render={_ => user? 
+          <Redirect to='/user_page' /> :
+          <Login validateLogin={validateLogin}
+        />} />
+        <Route path ='/register' render={_ => user?
+          <Redirect to='/user_page' /> :
+          <Register registerUser={registerUser} 
+          />} />
         <Route path ='/user_page' render={_ => <MainContainer />} />
       </div>
     </Router>
