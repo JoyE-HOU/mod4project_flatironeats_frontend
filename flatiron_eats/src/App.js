@@ -1,33 +1,72 @@
-import logo from './logo.svg';
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+
+// containers
+import MainContainer from './containers/MainContainer'
+
+// components
+import Login from './components/Login'
+import Register from './components/Register'
+
+// styling
 import './App.css';
-import Login from './Login'
 
+// endpoints
 const URL = 'http://localhost:3000/users'
-
-
-// import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 function App() {
 
-  const [user, setUser] = useState([])
+  const [users, setUsers] = useState([])
+  const [user, setUser] = useState({})
 
   useEffect(async() => {
-    const users = await fetch(URL)
-    const usersRes = await users.json()
-    setUser (usersRes)
-  })
+    const fetchUsers = await fetch(URL)
+    const usersRes = await fetchUsers.json()
+    setUsers(usersRes)
+  }, [])
 
-  validLogin = (user) => {
-    //if both the name and email matches
-    //then the login component will be hidden show the other components
-    //poss. have to react routes to view other components
+  const login = async (user) => {
+    const newUser = await setUser(user)
+    debugger
+    return <Redirect to={'/user_page'} />
+  }
+
+  const validateLogin = (name, email) => {
+    const user = users.find(user => user.name === name && user.email===email)
+    
+    if (user) {
+      login(user)
+    } else {console.log(false)}
+  }
+
+  const registerUser = async (name, email, city) => {
+    const userObj = {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST",
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        city: city
+      })
+    }
+
+    const postUser = await fetch(URL, userObj)
+    const userRes = await postUser.json()
+
+    setUsers([...users, userRes])
+    login(user)
   }
 
   return (
-    <div>
-      <Login validLogin={validLogin()}/>
-    </div>
+    <Router>
+      <div>
+        <Route exact path ='/' render={_ => <Login validateLogin={validateLogin} />} />
+        <Route path ='/register' render={_ => <Register registerUser={registerUser} />} />
+        <Route path ='/user_page' render={_ => <MainContainer />} />
+      </div>
+    </Router>
   );
 }
 
