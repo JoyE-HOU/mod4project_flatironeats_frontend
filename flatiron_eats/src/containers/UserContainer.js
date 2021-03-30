@@ -6,11 +6,10 @@ import FavoriteRestaurants from './FavoriteRestaurants'
 // components
 import UserDetails from '../components/UserDetails'
 
-const UserContainer = ({restaurants, unlikeRestaurant}) => {
+const UserContainer = ({restaurants, user, unlikeRestaurant}) => {
     return(
         <div>
-            <h1>User Container</h1>
-            <UserDetails />
+            <UserDetails user={user}/>
             <FavoriteRestaurants restaurants={restaurants} unlikeRestaurant={unlikeRestaurant} />
         </div>
     )

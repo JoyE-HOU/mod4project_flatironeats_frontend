@@ -29,7 +29,7 @@ function App() {
   const login = async (user) => {
     const newUser = await setUser(user)
     // debugger
-    return <Redirect to={'/user_page'} />
+    // return <Redirect to={'/user_page'} />
   }
 
   const validateLogin = (name, email) => {
@@ -72,7 +72,7 @@ function App() {
           <Redirect to='/user_page' /> :
           <Register registerUser={registerUser} 
           />} />
-        <Route path ='/user_page' render={_ => <MainContainer />} />
+        <Route path ='/user_page' render={_ => <MainContainer user={user} />} />
       </div>
     </Router>
   );

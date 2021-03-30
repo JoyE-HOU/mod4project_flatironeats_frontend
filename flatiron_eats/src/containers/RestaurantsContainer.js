@@ -8,7 +8,7 @@ import RestaurantCard from '../components/RestaurantCard'
 const RestaurantsContainer = ({restaurants, likeRestaurant}) => {
     return(
         <div>
-            <div>
+            <div className='card-columns'>
                 {restaurants.map(rest => <RestaurantCard key={rest.id} restaurant={rest} clickAction={likeRestaurant} /> )}
             </div>
         </div>
