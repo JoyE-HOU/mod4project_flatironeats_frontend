@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 
 // containers
 import MainContainer from './containers/MainContainer'
@@ -32,8 +32,8 @@ function App() {
     // return <Redirect to={'/user_page'} />
   }
 
-  const validateLogin = (name, email) => {
-    const user = users.find(user => user.name === name && user.email===email)
+  const validateLogin = (password, email) => {
+    const user = users.find(user => user.email === email && user.email===email)
     
     if (user) {
       login(user)
@@ -63,17 +63,18 @@ function App() {
 
   return (
     <Router>
-      <div>
-        <Route exact path ='/' render={_ => user? 
-          <Redirect to='/user_page' /> :
-          <Login validateLogin={validateLogin}
-        />} />
-        <Route path ='/register' render={_ => user?
-          <Redirect to='/user_page' /> :
-          <Register registerUser={registerUser} 
-          />} />
-        <Route path ='/user_page' render={_ => <MainContainer user={user} />} />
-      </div>
+      <Switch>
+          <Route exact path ='/' render={_ => user ? 
+            <Redirect to='/user_page' /> :
+            <Login validateLogin={validateLogin}/>} />
+          <Route path ='/register' render={_ => user ?
+            <Redirect to='/user_page' /> :
+            <Register registerUser={registerUser} />} />
+          <Route path ='/user_page' render={_ => <MainContainer user={user} />} />
+          <Route>
+            <Redirect to='/' />
+          </Route>
+      </Switch>
     </Router>
   );
 }
