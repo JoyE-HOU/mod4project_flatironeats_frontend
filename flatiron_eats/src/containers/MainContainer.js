@@ -66,7 +66,7 @@ const MainContainer = ({user}) => {
 
     return(
         <div>
-            <Header />
+            <Header restaurants={restaurants}/>
             <div className='container-fluid'>
                 <div className='row row-height justify-content-around'>
                     <div className='col-3 scrollable scroll-hide'>

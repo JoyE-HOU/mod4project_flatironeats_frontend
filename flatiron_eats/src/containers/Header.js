@@ -1,32 +1,18 @@
 import React, { useEffect, useState } from 'react'
 
 import SearchBar from '../components/SearchBar'
-import Logout from '../components/Logout'
+// import Logout from '../components/Logout'
 
 // styling
 import Logo from '../images/mod4_logo_horizontal.png'
 
-const RestuarantURL = 'http://localhost:3000/restaurants'
-
-const Header = () => {
-
-    const [input, setInput] = useState("")
-    const [restaurantList, setRestaurantList] = useState([])
-    // const [restaurantSearch, setRestaurantSearch] = useState("")
-
-    useEffect(async() => {
-        const fetchRestuarants = await fetch(RestuarantURL)
-        const restuarantsRes = await fetchRestuarants.json()
-        setRestaurantList(restuarantsRes)
-    })
+const Header = ({restaurants}) => {
 
     const updateInput = async (input) => {
-        const filtered = restaurantList.filter(restaurant => {
-            return restaurant.location.includes(input)
-            // return restaurant.location.toLowerCase().includes(input.toLowerCase())
+        const filtered = restaurants.filter(restaurant => {
+            return restaurant.location == input
         })
-        setInput(input)
-        setRestaurantList(filtered)
+        console.log(filtered)
     }
 
     return(
@@ -34,12 +20,9 @@ const Header = () => {
         <header>
             <img src={Logo} />
         </header>
-            <SearchBar 
-                // input={input}
-                updateInput={updateInput}  
-            />
+            <SearchBar updateInput={updateInput}/>
             <br></br>
-            <Logout />
+            {/* <Logout /> */}
         </div>
     )
 }

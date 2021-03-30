@@ -7,7 +7,7 @@ const SearchBar = ({updateInput}) => {
 
     function handleChange(e) {
         e.preventDefault()
-        console.log(e.target.value)
+        console.log(input)
         updateInput(input)
     }
 
@@ -23,7 +23,7 @@ const SearchBar = ({updateInput}) => {
                 value={input}
                 placeholder={"find restuarants by city"}
                 name="s"
-                onChange={(e) => setInput(console.log(e.target.value))}
+                onChange={(e) => setInput(e.target.value)}
             />
             <button type="submit">Search</button>
         </form>
