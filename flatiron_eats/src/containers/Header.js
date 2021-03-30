@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import SearchBar from '../components/SearchBar'
-import Logout from '../components/Logout'
+// import Logout from '../components/Logout'
 
 // styling
 import Logo from '../images/mod4_logo_horizontal.png'
@@ -18,7 +18,7 @@ const Header = () => {
         const fetchRestuarants = await fetch(RestuarantURL)
         const restuarantsRes = await fetchRestuarants.json()
         setRestaurantList(restuarantsRes)
-    })
+    }, [])
 
     const updateInput = async (input) => {
         const filtered = restaurantList.filter(restaurant => {
@@ -39,7 +39,7 @@ const Header = () => {
                 updateInput={updateInput}  
             />
             <br></br>
-            <Logout />
+            {/* <Logout /> */}
         </div>
     )
 }

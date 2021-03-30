@@ -32,30 +32,34 @@ function App() {
     // return <Redirect to={'/user_page'} />
   }
 
-  const validateLogin = (password, email) => {
-    const user = users.find(user => user.email === email && user.email===email)
+  const validateLogin = (name, email) => {
+    const user = users.find(user => user.name === name && user.email===email)
     
     if (user) {
       login(user)
     } else {console.log(false)}
   }
 
-  const registerUser = async (name, email, city) => {
+  const registerUser = async (name, email, city, password) => {
     const userObj = {
       headers: {
         "Content-Type": "application/json"
       },
       method: "POST",
       body: JSON.stringify({
-        name: name,
-        email: email,
-        city: city
+        user: {
+          name,
+          email,
+          city,
+          password
+        }
       })
     }
 
     const postUser = await fetch(URL, userObj)
     const userRes = await postUser.json()
 
+    debugger
     setUsers([...users, userRes])
     setUser(userRes)
     login(userRes)

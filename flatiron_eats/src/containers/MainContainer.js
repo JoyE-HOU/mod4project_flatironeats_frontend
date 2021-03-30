@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import UserContainer from './UserContainer'
 import RestaurantsContainer from './RestaurantsContainer'
+import DetailsContainer from './DetailsContainer'
 
 // endpoints
 const RES_URL = 'http://localhost:3000/restaurants'
@@ -13,6 +14,7 @@ const MainContainer = ({user}) => {
 
     const [restaurants, setRestaurants] = useState([])
     const [favRestaurants, setFavRestaurants] = useState([])
+    const [detailRest, setDetailRest] = useState(null)
 
     useEffect(async() => {
         
@@ -21,7 +23,7 @@ const MainContainer = ({user}) => {
         
         setRestaurants(restRes)
         setFavRestaurants(user.likes)
-    }, [setRestaurants, setFavRestaurants])
+    }, [])
 
     const likeRestaurant = async (restaurantId) => {
         
@@ -64,16 +66,25 @@ const MainContainer = ({user}) => {
         setFavRestaurants(newFavs)
     }
 
+    const showDetail = (restaurant) => {
+        setDetailRest(restaurant)
+    }
+
+    const hideDetail = () => {
+        setDetailRest(null)
+    }
+
     return(
         <div>
             <Header />
             <div className='container-fluid'>
                 <div className='row row-height justify-content-around'>
                     <div className='col-3 scrollable scroll-hide'>
-                        <UserContainer restaurants={restaurants.filter(res => favRestaurants.some(favRes => favRes.restaurant_id === res.id) )} user={user} unlikeRestaurant={(restaurantId) => unlikeRestaurant(restaurantId)} />  
+                        <UserContainer restaurants={restaurants.filter(res => favRestaurants.some(favRes => favRes.restaurant_id === res.id) )} user={user} unlikeRestaurant={(restaurantId) => unlikeRestaurant(restaurantId)} showDetail={(rest) => showDetail(rest)} />  
                     </div>
                     <div className='col-9 scrollable scroll-hide'>
-                        <RestaurantsContainer restaurants={restaurants} likeRestaurant={(restaurantId) => likeRestaurant(restaurantId)} />
+                        {detailRest ? <DetailsContainer restaurant={detailRest} hideDetail={hideDetail} /> : <RestaurantsContainer restaurants={restaurants} likeRestaurant={(restaurantId) => likeRestaurant(restaurantId)} showDetail={(rest) => showDetail(rest)} /> }
+                        
                     </div> 
                 </div>
             </div>

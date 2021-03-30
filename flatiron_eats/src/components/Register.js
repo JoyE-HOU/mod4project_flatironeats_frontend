@@ -8,11 +8,12 @@ function Login({registerUser}) {
   const [name, setName] = useState('')  
   const [email, setEmail] = useState('')  
   const [city, setCity] = useState('')  
+  const [password, setPassword] = useState('')  
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    registerUser(name, email, city)
+    registerUser(name, email, city, password)
   }
 
   return (
@@ -31,6 +32,10 @@ function Login({registerUser}) {
         <div>
           <label htmlFor="email">City</label>
           <input type="city" name="city" placeholder="city" value={city} onChange={(e) => setCity(e.target.value)} />
+        </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <input type="password" name="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <input type="submit" value="Register" />
       </form>

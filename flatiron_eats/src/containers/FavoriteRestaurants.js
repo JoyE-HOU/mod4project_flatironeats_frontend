@@ -5,11 +5,11 @@ import React from 'react'
 // components
 import RestaurantCard from '../components/RestaurantCard'
 
-const FavoriteRestaurants = ({restaurants, unlikeRestaurant}) => {
+const FavoriteRestaurants = ({restaurants, unlikeRestaurant, showDetail}) => {
     return(
         <div>
             <h1>Favorite Restaurants</h1>
-            {restaurants.map(rest => <RestaurantCard key={rest.id} restaurant={rest} liked={true} clickAction={unlikeRestaurant} /> )}
+            {restaurants.map(rest => <RestaurantCard key={rest.id} restaurant={rest} liked={true} showDetail={showDetail} clickAction={unlikeRestaurant} /> )}
         </div>
     )
 }

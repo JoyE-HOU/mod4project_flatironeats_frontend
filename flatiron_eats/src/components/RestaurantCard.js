@@ -5,11 +5,11 @@ import React from 'react'
 //components
 import Review from './Review'
 
-const RestaurantCard = ({restaurant, liked, clickAction}) => {
+const RestaurantCard = ({restaurant, liked, clickAction, showDetail}) => {
     
     return(
         <div className='card'>
-            <div className='card-header'><strong>{restaurant.name}</strong></div>
+            <div className='card-header' onClick={() => showDetail(restaurant)}><strong>{restaurant.name}</strong></div>
             <div className='card-body'>
                 <img src={restaurant.image} alt='picture of food' className='card-img'/>
                 <div className='card-text'>City: {restaurant.location}</div>
