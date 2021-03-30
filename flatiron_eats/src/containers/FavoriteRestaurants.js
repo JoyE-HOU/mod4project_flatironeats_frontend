@@ -9,7 +9,7 @@ const FavoriteRestaurants = ({restaurants, unlikeRestaurant}) => {
     return(
         <div>
             <h1>Favorite Restaurants</h1>
-            {restaurants.map(rest => <RestaurantCard key={rest.id} restaurant={rest} clickAction={unlikeRestaurant} /> )}
+            {restaurants.map(rest => <RestaurantCard key={rest.id} restaurant={rest} liked={true} clickAction={unlikeRestaurant} /> )}
         </div>
     )
 }

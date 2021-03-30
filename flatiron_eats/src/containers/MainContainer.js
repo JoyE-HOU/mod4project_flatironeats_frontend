@@ -67,12 +67,12 @@ const MainContainer = ({user}) => {
     return(
         <div>
             <Header />
-            <div className='container'>
-                <div className='row justify-content-around'>
-                    <div className='col-3'>
+            <div className='container-fluid'>
+                <div className='row row-height justify-content-around'>
+                    <div className='col-3 scrollable scroll-hide'>
                         <UserContainer restaurants={restaurants.filter(res => favRestaurants.some(favRes => favRes.restaurant_id === res.id) )} user={user} unlikeRestaurant={(restaurantId) => unlikeRestaurant(restaurantId)} />  
                     </div>
-                    <div className='col-9'>
+                    <div className='col-9 scrollable scroll-hide'>
                         <RestaurantsContainer restaurants={restaurants} likeRestaurant={(restaurantId) => likeRestaurant(restaurantId)} />
                     </div> 
                 </div>

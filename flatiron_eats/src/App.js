@@ -58,7 +58,7 @@ function App() {
 
     setUsers([...users, userRes])
     setUser(userRes)
-    login(user)
+    login(userRes)
   }
 
   return (

@@ -9,7 +9,7 @@ const RestaurantsContainer = ({restaurants, likeRestaurant}) => {
     return(
         <div>
             <div className='card-columns'>
-                {restaurants.map(rest => <RestaurantCard key={rest.id} restaurant={rest} clickAction={likeRestaurant} /> )}
+                {restaurants.map(rest => <RestaurantCard key={rest.id} restaurant={rest} liked={false} clickAction={likeRestaurant} /> )}
             </div>
         </div>
     )

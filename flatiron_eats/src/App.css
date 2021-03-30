@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.row-height {
+  height: 100vh;
+}
+
+.scrollable {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.scroll-hide::-webkit-scrollbar{
+  width: 0;
+  display: none;
+}
