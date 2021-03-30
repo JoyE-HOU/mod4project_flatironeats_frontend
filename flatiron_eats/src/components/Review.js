@@ -2,10 +2,10 @@ import React from 'react'
 
 const Review = ({review}) => {
     return(
-        <div>
-            <h6>{review.content}</h6>
-            <h6>{review.rating}</h6>
-        </div>
+        <li className='list-group-item'>
+            <h6>Review: {review.content}</h6>
+            <h6>Rating: {review.rating}</h6>
+        </li>
     )
 }
 

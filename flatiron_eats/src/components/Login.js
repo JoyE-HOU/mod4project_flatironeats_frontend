@@ -16,21 +16,31 @@ function Login({validateLogin}) {
   }
 
   return (
-    <div>
-      <img src={logo} alt="Flatiron Eats Logo" />
-      <form onSubmit={(e) => handleSubmit(e)} >
-        <div id="login">
-          <h3>Login Here</h3>
-          <label htmlFor="name">Name</label>
-          <input type="text" name="name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}/>
+    <div className='container'>
+      <div className='row align-items-center justify-content-center'>
+        <div className='col-4'>
+          <div className='text-center'>
+            <img src={logo} alt="Flatiron Eats Logo" />
+          </div>
+          <form onSubmit={(e) => handleSubmit(e)} >
+            <div id="login" className='text-center mb-3'>
+              <h3>Login Here</h3>
+            </div>
+            <div className='mb-3'>
+              <input className='form-control' type="text" name="name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}/>
+            </div>
+            <div className='text-center mb-3'>
+              <input className='form-control' type="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </div>
+            <div className='text-center mb-3'>
+              <button className='btn btn-outline-primary' type="submit" value="Login">Login</button>
+            </div>
+          </form>
+          <div className='text-center'>
+            Not a member? <Link to='/register'>Sign Up</Link>
+          </div>
         </div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input type="email" name="email" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </div>
-        <input type="submit" value="Login" />
-      </form>
-      Not a member? <Link to='/register'>Sign Up</Link>
+      </div>
     </div>
   )
 };

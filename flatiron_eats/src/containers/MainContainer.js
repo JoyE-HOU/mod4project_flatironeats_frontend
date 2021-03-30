@@ -84,7 +84,6 @@ const MainContainer = ({user}) => {
                     </div>
                     <div className='col-9 scrollable scroll-hide'>
                         {detailRest ? <DetailsContainer restaurant={detailRest} hideDetail={hideDetail} /> : <RestaurantsContainer restaurants={restaurants} likeRestaurant={(restaurantId) => likeRestaurant(restaurantId)} showDetail={(rest) => showDetail(rest)} /> }
-                        
                     </div> 
                 </div>
             </div>
