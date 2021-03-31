@@ -81,6 +81,7 @@ const MainContainer = ({user}) => {
 
     return(
         <div>
+        hello
             <Header restaurants={restaurants} updateInput={(input) => updateInput(input)}/>
             <div className='container-fluid'>
                 <div className='row row-height justify-content-around'>
