@@ -34,7 +34,6 @@ function Login({ history }) {
     } else {
       localStorage.setItem('auth_key', userSes.token)
       localStorage.setItem('user', JSON.stringify(userSes.user))
-      
       history.push('/user_page')
     }
 

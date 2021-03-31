@@ -5,16 +5,17 @@ const SearchBar = ({updateInput}) => {
 
     const [input, setInput] = useState("")
 
-    function handleChange(e) {
+    function handleSearch(e) {
         e.preventDefault()
-        console.log(e.target.value)
+        
         updateInput(input)
+        setInput('')
     }
 
     const BarStyling = {width:"20rem", background:"#F2F1F9", border:"none", padding:"0.5rem"};
     
     return(
-        <form onSubmit={(e) => handleChange(e)}>
+        <form onSubmit={(e) => handleSearch(e)}>
             <input
                 style={BarStyling}
                 type="search"
@@ -23,7 +24,7 @@ const SearchBar = ({updateInput}) => {
                 value={input}
                 placeholder={"find restuarants by city"}
                 name="s"
-                onChange={(e) => setInput(console.log(e.target.value))}
+                onChange={(e) => setInput(e.target.value)}
             />
             <button type="submit">Search</button>
         </form>

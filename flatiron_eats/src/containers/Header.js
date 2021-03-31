@@ -7,28 +7,7 @@ import SearchBar from '../components/SearchBar'
 // styling
 import Logo from '../images/mod4_logo_horizontal.png'
 
-const RestuarantURL = 'http://localhost:3000/restaurants'
-
-const Header = ({history}) => {
-
-    const [input, setInput] = useState("")
-    const [restaurantList, setRestaurantList] = useState([])
-    // const [restaurantSearch, setRestaurantSearch] = useState("")
-
-    useEffect(async() => {
-        const fetchRestuarants = await fetch(RestuarantURL)
-        const restuarantsRes = await fetchRestuarants.json()
-        setRestaurantList(restuarantsRes)
-    }, [])
-
-    const updateInput = async (input) => {
-        const filtered = restaurantList.filter(restaurant => {
-            return restaurant.location.includes(input)
-            // return restaurant.location.toLowerCase().includes(input.toLowerCase())
-        })
-        setInput(input)
-        setRestaurantList(filtered)
-    }
+const Header = ({history, restaurants, updateInput}) => {
 
     const logout = () => {
         localStorage.removeItem('auth_key')
@@ -45,7 +24,7 @@ const Header = ({history}) => {
                     </div>
                     <div className='col-4 text-center'>
                         <SearchBar 
-                            // input={input}
+                            restaurants={restaurants}
                             updateInput={updateInput}  
                         />
                     </div>
