@@ -25,7 +25,7 @@ function App() {
         <Route exact path ='/' render={_ => <Login setToken={setToken} />} />
         <Route path ='/register' render={_ => <Register />} />
         <Route path ='/user_page' >
-          { token ? <MainContainer /> : <Redirect to='/register' />} 
+          { token || localStorage.getItem('auth_key') ? <MainContainer /> : <Redirect to='/' />} 
         </Route>
         <Route>
           <Redirect to='/' />
