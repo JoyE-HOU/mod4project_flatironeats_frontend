@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import { withRouter } from 'react-router'
 
+// components
 import SearchBar from '../components/SearchBar'
-// import Logout from '../components/Logout'
 
 // styling
 import Logo from '../images/mod4_logo_horizontal.png'
 
 const RestuarantURL = 'http://localhost:3000/restaurants'
 
-const Header = () => {
+const Header = ({history}) => {
 
     const [input, setInput] = useState("")
     const [restaurantList, setRestaurantList] = useState([])
@@ -29,18 +30,27 @@ const Header = () => {
         setRestaurantList(filtered)
     }
 
+    const logout = () => {
+        localStorage.removeItem('auth_key')
+        localStorage.removeItem('user')
+        history.push('/')
+    }
+
     return(
         <header>
             <div className='container'>
-                <div className='row align-items-center justify-content-around'>
-                    <div className='col-6'>
+                <div className='row align-items-center justify-content-center'>
+                    <div className='col-4'>
                         <img src={Logo} />
                     </div>
-                    <div className='col-6'>
+                    <div className='col-4 text-center'>
                         <SearchBar 
                             // input={input}
                             updateInput={updateInput}  
                         />
+                    </div>
+                    <div className='col-4 text-right'>
+                        <button onClick={() => logout()}>Logout</button>
                     </div>
                 </div>
             </div>
@@ -48,4 +58,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default withRouter(Header)

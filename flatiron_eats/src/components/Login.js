@@ -33,7 +33,8 @@ function Login({ history }) {
       history.push('/')
     } else {
       localStorage.setItem('auth_key', userSes.token)
-      localStorage.setItem('user_id', JSON.stringify(userSes.user.id))
+      localStorage.setItem('user', JSON.stringify(userSes.user))
+      
       history.push('/user_page')
     }
 

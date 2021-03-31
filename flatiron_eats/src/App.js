@@ -18,25 +18,12 @@ const URL = 'http://localhost:3000/users'
 
 function App() {
 
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-      if (localStorage.getItem('user_id')) {
-        fetch(URL+'/'+JSON.parse(localStorage.getItem('user_id')))
-          .then(res => res.json())
-          .then(user => setUser(user))
-      }
-
-      console.log(user)
-    }, [user, setUser]
-  )
-
   return (
     <Switch>
         <Route exact path ='/' render={_ => <Login />} />
         <Route path ='/register' render={_ => <Register />} />
         <Route path ='/user_page' >
-          { localStorage.getItem('auth_key') ? <MainContainer user={user} /> : <Redirect to='/' />} 
+          { localStorage.getItem('auth_key') ? <MainContainer /> : <Redirect to='/' />} 
         </Route>
         <Route>
           <Redirect to='/' />
