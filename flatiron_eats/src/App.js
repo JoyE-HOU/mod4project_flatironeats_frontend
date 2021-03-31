@@ -18,12 +18,14 @@ const URL = 'http://localhost:3000/users'
 
 function App() {
 
+  const [token, setToken] = useState('')
+
   return (
     <Switch>
-        <Route exact path ='/' render={_ => <Login />} />
+        <Route exact path ='/' render={_ => <Login setToken={setToken} />} />
         <Route path ='/register' render={_ => <Register />} />
         <Route path ='/user_page' >
-          { localStorage.getItem('auth_key') ? <MainContainer /> : <Redirect to='/' />} 
+          { token || localStorage.getItem('auth_key') ? <MainContainer /> : <Redirect to='/' />} 
         </Route>
         <Route>
           <Redirect to='/' />

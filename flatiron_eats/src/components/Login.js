@@ -8,7 +8,7 @@ import logo from '../images/mod4_logo.png';
 // endpoints
 const SESSION_URL = 'http://localhost:3000/sessions'
 
-function Login({ history }) {
+function Login({ history, setToken }) {
 
   const [email, setEmail] = useState('')  
   const [password, setPassword] = useState('')  
@@ -25,7 +25,7 @@ function Login({ history }) {
     })
 
     const userSes = await postSes.json()
-
+    
     if (userSes.msg) {
       alert(userSes.msg)
       setEmail('')
@@ -34,6 +34,7 @@ function Login({ history }) {
     } else {
       localStorage.setItem('auth_key', userSes.token)
       localStorage.setItem('user', JSON.stringify(userSes.user))
+      setToken(userSes.token)
       history.push('/user_page')
     }
 
