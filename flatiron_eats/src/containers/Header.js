@@ -30,17 +30,21 @@ const Header = () => {
     }
 
     return(
-        <div>
         <header>
-            <img src={Logo} />
+            <div className='container'>
+                <div className='row align-items-center justify-content-around'>
+                    <div className='col-6'>
+                        <img src={Logo} />
+                    </div>
+                    <div className='col-6'>
+                        <SearchBar 
+                            // input={input}
+                            updateInput={updateInput}  
+                        />
+                    </div>
+                </div>
+            </div>
         </header>
-            <SearchBar 
-                // input={input}
-                updateInput={updateInput}  
-            />
-            <br></br>
-            {/* <Logout /> */}
-        </div>
     )
 }
 

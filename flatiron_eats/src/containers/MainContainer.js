@@ -9,21 +9,28 @@ import DetailsContainer from './DetailsContainer'
 // endpoints
 const RES_URL = 'http://localhost:3000/restaurants'
 const LIKE_URL = 'http://localhost:3000/likes'
+const USER_URL = 'http://localhost:3000/users'
 
-const MainContainer = ({user}) => {
+const MainContainer = () => {
 
+    const userId = JSON.parse(localStorage.getItem('user_id'))
     const [restaurants, setRestaurants] = useState([])
     const [favRestaurants, setFavRestaurants] = useState([])
     const [detailRest, setDetailRest] = useState(null)
+    const [user, setUser] = useState(null)
 
     useEffect(async() => {
         
         const fetchRes = await fetch(RES_URL)
         const restRes = await fetchRes.json()
-        
+
+        const fetchUser = await fetch(USER_URL+'/'+userId)
+        const userRes = await fetchUser.json()
+
+        setUser(userRes)
         setRestaurants(restRes)
         setFavRestaurants(user.likes)
-    }, [])
+    }, [user, restaurants, favRestaurants])
 
     const likeRestaurant = async (restaurantId) => {
         

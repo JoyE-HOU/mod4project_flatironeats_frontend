@@ -1,18 +1,42 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom' 
+import { withRouter } from 'react-router'
 
 // styling
 import logo from '../images/mod4_logo.png';
 
-function Login({validateLogin}) {
+// endpoints
+const SESSION_URL = 'http://localhost:3000/sessions'
 
-  const [name, setName] = useState('')  
+function Login({ history }) {
+
   const [email, setEmail] = useState('')  
+  const [password, setPassword] = useState('')  
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // console.log('hello')
-    validateLogin(name, email)
+    
+    const postSes = await fetch(SESSION_URL, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({user: {email, password}})
+    })
+
+    const userSes = await postSes.json()
+
+    if (userSes.msg) {
+      alert(userSes.msg)
+      setEmail('')
+      setPassword('')
+      history.push('/')
+    } else {
+      localStorage.setItem('auth_key', userSes.token)
+      localStorage.setItem('user_id', JSON.stringify(userSes.user.id))
+      history.push('/user_page')
+    }
+
   }
 
   return (
@@ -26,11 +50,11 @@ function Login({validateLogin}) {
             <div id="login" className='text-center mb-3'>
               <h3>Login Here</h3>
             </div>
-            <div className='mb-3'>
-              <input className='form-control' type="text" name="name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}/>
-            </div>
             <div className='text-center mb-3'>
               <input className='form-control' type="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </div>
+            <div className='mb-3'>
+              <input className='form-control' type="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
             </div>
             <div className='text-center mb-3'>
               <button className='btn btn-outline-primary' type="submit" value="Login">Login</button>
@@ -45,4 +69,4 @@ function Login({validateLogin}) {
   )
 };
 
-  export default Login
+  export default withRouter(Login)

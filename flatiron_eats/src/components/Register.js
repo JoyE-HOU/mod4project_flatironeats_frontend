@@ -1,19 +1,41 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router'
 
 // styling
 import logo from '../images/mod4_logo.png';
 
-function Login({registerUser}) {
+// endpoints
+const URL = 'http://localhost:3000/users'
+
+function Login({ history }) {
 
   const [name, setName] = useState('')  
   const [email, setEmail] = useState('')  
   const [city, setCity] = useState('')  
   const [password, setPassword] = useState('')  
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
-    registerUser(name, email, city, password)
+    const userObj = {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST",
+      body: JSON.stringify({
+        user: {
+          name,
+          email,
+          city,
+          password
+        }
+      })
+    }
+
+    const postUser = await fetch(URL, userObj)
+    const userRes = await postUser.json()
+
+    history.push('/')
   }
 
   return (
@@ -49,4 +71,4 @@ function Login({registerUser}) {
   )
 };
 
-  export default Login
+  export default withRouter(Login)

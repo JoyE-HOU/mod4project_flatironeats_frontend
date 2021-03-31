@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 
 // containers
@@ -18,69 +18,30 @@ const URL = 'http://localhost:3000/users'
 
 function App() {
 
-  const [users, setUsers] = useState([])
   const [user, setUser] = useState(null)
 
-  useEffect(async() => {
-    const fetchUsers = await fetch(URL)
-    const usersRes = await fetchUsers.json()
-    setUsers(usersRes)
-  }, [])
+  useEffect(() => {
+      if (localStorage.getItem('user_id')) {
+        fetch(URL+'/'+JSON.parse(localStorage.getItem('user_id')))
+          .then(res => res.json())
+          .then(user => setUser(user))
+      }
 
-  const login = async (user) => {
-    const newUser = await setUser(user)
-    // debugger
-    // return <Redirect to={'/user_page'} />
-  }
-
-  const validateLogin = (name, email) => {
-    const user = users.find(user => user.name === name && user.email===email)
-    
-    if (user) {
-      login(user)
-    } else {console.log(false)}
-  }
-
-  const registerUser = async (name, email, city, password) => {
-    const userObj = {
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST",
-      body: JSON.stringify({
-        user: {
-          name,
-          email,
-          city,
-          password
-        }
-      })
-    }
-
-    const postUser = await fetch(URL, userObj)
-    const userRes = await postUser.json()
-
-    debugger
-    setUsers([...users, userRes])
-    setUser(userRes)
-    login(userRes)
-  }
+      console.log(user)
+    }, [user, setUser]
+  )
 
   return (
-    <Router>
-      <Switch>
-          <Route exact path ='/' render={_ => user ? 
-            <Redirect to='/user_page' /> :
-            <Login validateLogin={validateLogin}/>} />
-          <Route path ='/register' render={_ => user ?
-            <Redirect to='/user_page' /> :
-            <Register registerUser={registerUser} />} />
-          <Route path ='/user_page' render={_ => <MainContainer user={user} />} />
-          <Route>
-            <Redirect to='/' />
-          </Route>
-      </Switch>
-    </Router>
+    <Switch>
+        <Route exact path ='/' render={_ => <Login />} />
+        <Route path ='/register' render={_ => <Register />} />
+        <Route path ='/user_page' >
+          { localStorage.getItem('auth_key') ? <MainContainer user={user} /> : <Redirect to='/' />} 
+        </Route>
+        <Route>
+          <Redirect to='/' />
+        </Route>
+    </Switch>
   );
 }
 
