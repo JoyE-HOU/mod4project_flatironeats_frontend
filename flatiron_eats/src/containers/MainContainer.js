@@ -13,6 +13,8 @@ const MainContainer = ({user}) => {
 
     const [restaurants, setRestaurants] = useState([])
     const [favRestaurants, setFavRestaurants] = useState([])
+    const [filterRestaurants, setFilterRestaurants] = useState([])
+    // const [input, setInput] = useState("")
 
     useEffect(async() => {
         
@@ -21,6 +23,7 @@ const MainContainer = ({user}) => {
         
         setRestaurants(restRes)
         setFavRestaurants(user.likes)
+        setFilterRestaurants(restRes)
     }, [setRestaurants, setFavRestaurants])
 
     const likeRestaurant = async (restaurantId) => {
@@ -64,16 +67,28 @@ const MainContainer = ({user}) => {
         setFavRestaurants(newFavs)
     }
 
+    const updateInput = (input) => {
+        let filtered 
+        if (input === "") {
+            filtered = restaurants
+        } else 
+        {filtered = restaurants.filter(restaurant => {
+            return restaurant.location.toLowerCase() == input
+        })} 
+        console.log(filtered)
+        setFilterRestaurants(filtered)
+    }
+
     return(
         <div>
-            <Header restaurants={restaurants}/>
+            <Header restaurants={restaurants} updateInput={(input) => updateInput(input)}/>
             <div className='container-fluid'>
                 <div className='row row-height justify-content-around'>
                     <div className='col-3 scrollable scroll-hide'>
                         <UserContainer restaurants={restaurants.filter(res => favRestaurants.some(favRes => favRes.restaurant_id === res.id) )} user={user} unlikeRestaurant={(restaurantId) => unlikeRestaurant(restaurantId)} />  
                     </div>
                     <div className='col-9 scrollable scroll-hide'>
-                        <RestaurantsContainer restaurants={restaurants} likeRestaurant={(restaurantId) => likeRestaurant(restaurantId)} />
+                        <RestaurantsContainer restaurants={filterRestaurants} likeRestaurant={(restaurantId) => likeRestaurant(restaurantId)}/>
                     </div> 
                 </div>
             </div>

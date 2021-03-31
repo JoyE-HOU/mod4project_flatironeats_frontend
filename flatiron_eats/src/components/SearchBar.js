@@ -23,7 +23,7 @@ const SearchBar = ({updateInput}) => {
                 value={input}
                 placeholder={"find restuarants by city"}
                 name="s"
-                onChange={(e) => setInput(e.target.value)}
+                onChange={(e) => updateInput(e.target.value)}
             />
             <button type="submit">Search</button>
         </form>
