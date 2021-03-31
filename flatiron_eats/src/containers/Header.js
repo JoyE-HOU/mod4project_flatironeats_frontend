@@ -22,13 +22,15 @@ const Header = ({history, restaurants, updateInput}) => {
                     <div className='col-4'>
                         <img src={Logo} />
                     </div>
-                    <div className='col-4 text-center'>
+                </div>
+                <div className='row align-items-center justify-content-center'>
+                    <div className='col text-center'>
                         <SearchBar 
                             restaurants={restaurants}
                             updateInput={updateInput}  
                         />
                     </div>
-                    <div className='col-4 text-right'>
+                    <div className='col text-right'>
                         <button onClick={() => logout()}>Logout</button>
                     </div>
                 </div>
